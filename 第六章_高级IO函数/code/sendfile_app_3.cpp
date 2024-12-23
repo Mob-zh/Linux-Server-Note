@@ -11,34 +11,34 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <sys/sendfile.h>
-intmain(intargc, char *argv[])
+intmain(int argc, char *argv[])
 {
     if (argc <= 3)
     {
-        printf("usage:%sip_addressport_number filename\n", basename(argv[0]));
+        printf("usage:%s ip_address port_number filename\n", basename(argv[0]));
         return 1;
     }
     const char *ip = argv[1];
     int port = atoi(argv[2]);
-    constchar *file_name = argv[3];
-    intfilefd = open(file_name, O_RDONLY);
+    const char *file_name = argv[3];
+    int filefd = open(file_name, O_RDONLY);
     assert(filefd > 0);
-    structstatstat_buf;
+    struct stat stat_buf;
     fstat(filefd, &stat_buf);
-    structsockaddr_inaddress;
+    struct sockaddr_in address;
     bzero(&address, sizeof(address));
     address.sin_family = AF_INET;
     inet_pton(AF_INET, ip, &address.sin_addr);
     address.sin_port = htons(port);
-    intsock = socket(PF_INET, SOCK_STREAM, 0);
+    int sock = socket(PF_INET, SOCK_STREAM, 0);
     assert(sock >= 0);
-    intret = bind(sock, (structsockaddr *)&address, sizeof(address));
+    int ret = bind(sock, (structsockaddr *)&address, sizeof(address));
     assert(ret != -1);
     ret = listen(sock, 5);
     assert(ret != -1);
-    structsockaddr_inclient;
-    socklen_tclient_addrlength = sizeof(client);
-    intconnfd = accept(sock, (structsockaddr *)&client, &client_addrlength);
+    struct sockaddr_in client;
+    socklen_t client_addrlength = sizeof(client);
+    int connfd = accept(sock, (struct sockaddr *)&client, &client_addrlength);
     if (connfd < 0)
     {
         printf("errnois:%d\n", errno);
@@ -49,5 +49,5 @@ intmain(intargc, char *argv[])
         close(connfd);
     }
     close(sock);
-    return0;
+    return 0;
 }
