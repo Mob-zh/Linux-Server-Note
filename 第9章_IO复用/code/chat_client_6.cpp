@@ -1,4 +1,4 @@
-#define_GNU_SOURCE 1
+#define _GNU_SOURCE 1
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
@@ -26,7 +26,7 @@ int main(int argc, char *argv[])
     inet_pton(AF_INET, ip, &server_address.sin_addr);
     server_address.sin_port = htons(port);
     int sockfd = socket(PF_INET, SOCK_STREAM, 0);
-    assert(sockfd > = 0);
+    assert(sockfd >= 0);
     if (connect(sockfd, (struct sockaddr *)&server_address, sizeof(server_address)) < 0)
     {
         printf("connection failed\n");
