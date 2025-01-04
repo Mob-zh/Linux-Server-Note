@@ -1,4 +1,4 @@
-#define_GNU_SOURCE 1
+#define _GNU_SOURCE 1
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
@@ -30,7 +30,7 @@ int setnonblocking(int fd)
 }
 int main(int argc, char *argv[])
 {
-    if (argc < = 2)
+    if (argc <= 2)
     {
         printf("usage:%s ip_address port_number\n", basename(argv[0]));
         return 1;
@@ -58,7 +58,7 @@ int main(int argc, char *argv[])
     制用户的数量*/
     pollfd fds[USER_LIMIT + 1];
     int user_counter = 0;
-    for (int i = 1; i < = USER_LIMIT; ++i)
+    for (int i = 1; i <= USER_LIMIT; ++i)
     {
         fds[i].fd = -1;
         fds[i].events = 0;
@@ -87,8 +87,7 @@ int main(int argc, char *argv[])
                     continue;
                 }
                 /*如果请求太多，则关闭新到的连接*/
-                if (user_counter >
-                    = USER_LIMIT)
+                if (user_counter >= USER_LIMIT)
                 {
                     const char *info = "too many users\n";
                     printf("%s", info);
@@ -153,7 +152,7 @@ int main(int argc, char *argv[])
                 else
                 {
                     /*如果接收到客户数据，则通知其他socket连接准备写数据*/
-                    for (int j = 1; j < = user_counter; ++j)
+                    for (int j = 1; j <= user_counter; ++j)
                     {
                         if (fds[j].fd == connfd)
                         {
