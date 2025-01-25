@@ -76,7 +76,7 @@ int main(int argc, char *argv[])
         }
         for (int i = 0; i < user_counter + 1; ++i)
         {
-            if ((fds[i].fd == listenfd) & (fds[i].revents & POLLIN))
+            if ((fds[i].fd == listenfd) && (fds[i].revents && POLLIN))
             {
                 struct sockaddr_in client_address;
                 socklen_t client_addrlength = sizeof(client_address);
