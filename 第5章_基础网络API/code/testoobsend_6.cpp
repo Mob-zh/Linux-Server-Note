@@ -9,7 +9,7 @@
 // 代码清单5-6 发送带外数据
 int main(int argc, char *argv[])
 {
-    if (argc < = 2)
+    if (argc <= 2)
     {
         printf("usage:%s ip_address port_number\n", basename(argv[0]));
         return 1;
@@ -22,7 +22,7 @@ int main(int argc, char *argv[])
     inet_pton(AF_INET, ip, &server_address.sin_addr);
     server_address.sin_port = htons(port);
     int sockfd = socket(PF_INET, SOCK_STREAM, 0);
-    assert(sockfd > = 0);
+    assert(sockfd >= 0);
     if (connect(sockfd, (struct sockaddr *)&server_address, sizeof(server_address)) < 0)
     {
         printf("connection failed\n");
